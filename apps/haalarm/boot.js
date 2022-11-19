@@ -1,9 +1,17 @@
 var sendTrigger = function(data) {
-  Bluetooth.println(JSON.stringify({
-    t:"intent",
-    action:"com.espruino.gadgetbridge.banglejs.HA",
-    extra: data,
-  }));
+  var retries = 3;
+  while (retries > 0) {
+    try {
+      Bluetooth.println(JSON.stringify({
+        t:"intent",
+        action:"com.espruino.gadgetbridge.banglejs.HA",
+        extra: data,
+      }));
+      retries = -1;
+    } catch(e) {
+        retries--;
+    }
+  }
 };
 
 require("sched").setAlarms = function(alarms) {
@@ -15,7 +23,7 @@ var updateAlarms = function(alarms) {
   var days = [];
   for (var day = 0; day < 7; day++) {
     var alarm = alarms.filter(a=>a.on).filter(a=>
-      (Math.pow(2, day) & a.dow) >> day
+      (a.dow >> day) & 1
     ).sort(a=>a.t)[0];
     if (alarm) {
       var hours = Math.floor(alarm.t / 3600000);
