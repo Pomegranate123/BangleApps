@@ -5,6 +5,7 @@
   "description": "Sends your alarms to home assistant via intents",
   "icon": "app.png",
   "tags": "system",
+  "type": "bootloader",
   "supports": ["BANGLEJS2"],
   "dependencies": {"scheduler":"type"},
   "storage": [
