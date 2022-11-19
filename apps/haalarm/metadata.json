@@ -1,0 +1,13 @@
+{
+  "id": "haalarm",
+  "name": "Home Assistant alarms",
+  "version": "0.01",
+  "description": "Sends your alarms to home assistant via intents",
+  "icon": "app.png",
+  "type": "boot",
+  "tags": "system",
+  "supports": ["BANGLEJS2"],
+  "storage": [
+    {"name":"haalarm.boot.js","url":"boot.js"}
+  ]
+}

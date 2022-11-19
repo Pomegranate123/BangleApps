@@ -1,0 +1,29 @@
+var sendTrigger = function(data) {
+  Bluetooth.println(JSON.stringify({
+    t:"intent",
+    action:"com.espruino.gadgetbridge.banglejs.HA",
+    extra: data,
+  }));
+};
+
+require("sched").setAlarms = function(alarms) {
+  updateAlarms(alarms);
+  return require("Storage").writeJSON("sched.json",alarms);
+};
+
+var updateAlarms = function(alarms) {
+  var days = [];
+  for (var day = 0; day < 7; day++) {
+    var alarm = alarms.filter(a=>a.on).filter(a=>
+      (Math.pow(2, day) & a.dow) >> day
+    ).sort(a=>a.t)[0];
+    if (alarm) {
+      var hours = Math.floor(alarm.t / 3600000);
+      var mins = (alarm.t % 3600000) / 60000;
+      days.push({ on: true, hours, mins });
+    } else {
+      days.push({ on: false, hours: 12, mins: 0});
+    }
+  }
+  sendTrigger({trigger: "ALARM", days });
+};
