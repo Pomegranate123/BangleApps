@@ -2,6 +2,7 @@ var sendTrigger = function(data) {
   var retries = 3;
   while (retries > 0) {
     try {
+      Bluetooth.println(); // Make sure nothing else is already on the line we're gonna be printing on
       Bluetooth.println(JSON.stringify({
         t:"intent",
         action:"com.espruino.gadgetbridge.banglejs.HA",
@@ -10,6 +11,7 @@ var sendTrigger = function(data) {
       retries = -1;
       Bangle.buzz();
     } catch(e) {
+        Bangle.buzz(1000);
         retries--;
     }
   }
