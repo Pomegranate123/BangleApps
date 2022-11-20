@@ -8,6 +8,7 @@ var sendTrigger = function(data) {
         extra: data,
       }));
       retries = -1;
+      Bangle.buzz();
     } catch(e) {
         retries--;
     }
