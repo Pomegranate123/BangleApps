@@ -1,2 +1,3 @@
 0.01: Release
 0.02: Disabled alarms now also sync time
+0.03: Fix ordering of alarms
