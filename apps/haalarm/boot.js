@@ -25,13 +25,13 @@ require("sched").setAlarms = function(alarms) {
 var updateAlarms = function(alarms) {
   var days = [];
   for (var day = 0; day < 7; day++) {
-    var alarm = alarms.filter(a=>a.on).filter(a=>
+    var alarm = alarms.filter(a=>
       (a.dow >> day) & 1
     ).sort(a=>a.t)[0];
     if (alarm) {
       var hours = Math.floor(alarm.t / 3600000);
       var mins = (alarm.t % 3600000) / 60000;
-      days.push({ on: true, hours, mins });
+      days.push({ on: alarm.on, hours, mins });
     } else {
       days.push({ on: false, hours: 12, mins: 0});
     }
