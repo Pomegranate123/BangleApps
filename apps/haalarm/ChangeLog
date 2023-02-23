@@ -2,3 +2,4 @@
 0.02: Disabled alarms now also sync time
 0.03: Fix ordering of alarms
 0.04: Convert time to string before sending
+0.05: Changed weekly alarms to single alarm
